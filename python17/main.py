@@ -1,16 +1,23 @@
-# This is a sample Python script.
+from question_model import Question
+from data import question_data
+from quiz_brain import QuizBrain
+question_bank=[]
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+for question in question_data:
+    question_text = question["text"]
+    question_answer= question["answer"]
+    new_question=Question(text=question_text, answer=question_answer)
+    question_bank.append(new_question)
 
+quiz=QuizBrain(question_bank)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+while quiz.still_has_question():
+    quiz.next_question()
 
+print("You've completed the quiz")
+print(f"Your final score was :{quiz.score}/{quiz.question_number} ")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+## 객체 지향 프로그래밍을 통해 작성
+# question_data 데이터의 양식이 달라져도
+# question_text = ```question["text"]```
+# question_answer= ```question["answer"]``` 이 부분만 수정하면 다른 용도로 활용도 가능하게 된다.
