@@ -1,6 +1,6 @@
 from turtle import Screen, Turtle
 
-
+# 상수를 활용한 코드
 STARTING_POSITIONS=[(0,0),(-20,0),(-40,0)]
 MOVE_DISTANCE=20
 UP=90
@@ -17,7 +17,7 @@ class Snake:
         # 자주 활용할 예정이라 속성을 만들어 둔다.
         self.head=self.snake_shape[0]
 
-
+    # 뱀 만들기(정사각형 3개 합쳐서 구현)
     def create_snake(self):
         for position in STARTING_POSITIONS:
             seq = Turtle("square")
@@ -26,6 +26,7 @@ class Snake:
             seq.goto(position)
             self.snake_shape.append(seq)
 
+    # 뱀의 움직임(방향 전환 시 앞에 정사각형을 따라가게 구현)
     def move(self):
         for num in range(len(self.snake_shape) - 1, 0, -1):
             new_x = self.snake_shape[num - 1].xcor()

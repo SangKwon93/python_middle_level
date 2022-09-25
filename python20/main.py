@@ -2,6 +2,7 @@ import turtle
 from turtle import Screen, Turtle
 from snake import Snake
 
+# 스크린 창 만들기
 screen= Screen()
 screen.setup(width=600, height=600)
 screen.bgcolor("black")
@@ -10,6 +11,7 @@ screen.tracer(0)
 
 snake=Snake()
 
+# 뱀 키바인딩을 활용하여 이동하기
 screen.listen()
 screen.onkey(snake.up,"Up")
 screen.onkey(snake.down,"Down")
@@ -35,7 +37,7 @@ snake_shape=[]
 #     snake_shape.append(seq)
 
 
-
+# 게임 작동하기
 is_game=True
 
 while is_game:
