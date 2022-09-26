@@ -1,6 +1,8 @@
 import turtle
 from turtle import Screen, Turtle
 from snake import Snake
+from food import Food
+from scoreboard import ScoreBoard
 
 # 스크린 창 만들기
 screen= Screen()
@@ -10,6 +12,9 @@ screen.title("Snake Game")
 screen.tracer(0)
 
 snake=Snake()
+food=Food()
+scoreboard=ScoreBoard()
+
 
 # 뱀 키바인딩을 활용하여 이동하기
 screen.listen()
@@ -45,7 +50,24 @@ while is_game:
     time.sleep(0.1)
     snake.move()
 
+    # 먹이 충돌 감지
+    if snake.head.distance(food) < 10:
+        food.refresh()
+        snake.extend()
+        scoreboard.increase_score()
 
+    # 벽에 충돌 감지 후 게임 종료
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        is_game =False # While문을 벗어난다.
+        scoreboard.game_over()
+
+    # 꼬리와 충돌 시 종료
+    for shape in snake.snake_shape[1:]: # 인덱싱을 활용한 꼬리 제외한 몸통에서 하나씩 for문
+        # if shape == snake.head:
+        #     pass
+        if snake.head.distance(shape)< 10:
+            is_game=False
+            scoreboard.game_over()
 
 
 

@@ -20,11 +20,19 @@ class Snake:
     # 뱀 만들기(정사각형 3개 합쳐서 구현)
     def create_snake(self):
         for position in STARTING_POSITIONS:
-            seq = Turtle("square")
-            seq.color('white')
-            seq.penup()
-            seq.goto(position)
-            self.snake_shape.append(seq)
+            self.add_segment(position)
+
+
+    def add_segment(self,position):
+        seq = Turtle("square")
+        seq.color('white')
+        seq.penup()
+        seq.goto(position)
+        self.snake_shape.append(seq)
+
+    def extend(self):
+        self.add_segment(self.snake_shape[-1].position())
+
 
     # 뱀의 움직임(방향 전환 시 앞에 정사각형을 따라가게 구현)
     def move(self):
