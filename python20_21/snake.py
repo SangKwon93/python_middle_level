@@ -30,6 +30,16 @@ class Snake:
         seq.goto(position)
         self.snake_shape.append(seq)
 
+    # 벽에 부딫혀 죽은 뱀들 흔적 창 밖으로 보내고 재시작
+    def reset(self):
+        for pos in self.snake_shape:
+            pos.goto(1000,1000)
+        self.snake_shape.clear()
+        self.create_snake()
+        self.head=self.snake_shape[0]
+
+
+
     def extend(self):
         self.add_segment(self.snake_shape[-1].position())
 
