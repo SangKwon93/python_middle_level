@@ -3,11 +3,23 @@
     <head>
         <meta charset="UTF-8">
 
-        <title>Document</title>
+        <title>Contact me</title>
+            <link rel="stylesheet" href="css/styles.css">
     </head>
     <body>
-        <h1>SNS 계정</h1>
+        <h1>My Contact Details</h1>
         <p>이메일 : apfhda7@gmail.com</p>
-        <p><strong><a href="https://www.instagram.com/SangKwon0903/">인스타그램</a></strong></p>
+        <hr>
+        <form action="mailto:apfhda7@naver.com" method="post" enctype="text/plain"> <!-- 평문으로 인코딩-->
+            <label>Your Name:</label>
+            <input type="text" name="Your Name"value=""><br>
+            <label>Your Email:</label>
+            <input type="email" name="Your Email"value=""><br>
+            <label>Your Message:</label><br>
+            <textarea name="Your Message" row="100" cols="40"></textarea><br>
+            <input type="submit" name=""><br>
+
+        </form>
+
     </body>
 </html>
