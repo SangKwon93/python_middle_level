@@ -6,13 +6,9 @@ import os
 from requests.auth import HTTPBasicAuth
 
 # ////////////////////////////////////////////////////////////////////////////////////////
-# 환경변수 해결하지 못함
-APP_ID='596157ab'
-APP_KEY='de87979348b28c6a2dd5deba729ffee6'
-USERNAME='skpark'
-PASSWORD='sk138029'
-sheet_endpoint='https://api.sheety.co/ff22574e21f64527aac328c9407e1105/workoutTracking/workouts'
-TOKEN='c2twYXJrOnNrMTM4MDI5'
+# 환경변수 해결
+# File - settings - tools -terminal - Environment variables - 환경변수 추가하기
+# 리눅스 명령어는 bash 환경에서 활용
 # ////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -22,6 +18,14 @@ TOKEN='c2twYXJrOnNrMTM4MDI5'
 # 1단계 - API 인증 및 구글 스프레드 시트 준비하기
 APP_ID=os.environ["APP_ID"]
 APP_KEY=os.environ["APP_KEY"]
+TOKEN = os.environ["TOKEN"]
+USERNAME = os.environ["USERNAME"]
+PASSWORD = os.environ["PASSWORD"]
+
+# Basic Token 방식채택하여 인증
+basic_headers = {
+    "Authorization": f'Basic {TOKEN}'
+}
 
 exercise_input=input("무슨 운동을 하니?: ")
 
@@ -48,9 +52,15 @@ service_endpoint='https://trackapi.nutritionix.com/v2/natural/exercise'
 
 response= requests.post(url=service_endpoint,json=param_excercise,headers=headers )
 result=response.json()
-
+# print(result)
 
 # 3단계 - sheety로 구글시트 준비하기
+
+# https://sheety.co/ 로그인
+# 프로젝트 페이지에서 새 프로젝트 클릭
+# Sheety내에 새 프로젝트 Workout Tracking 생성
+# ‘나의 운동’ 구글 시트의 URL 작성
+# 운동 API 엔드포인트 클릭하고 get방식과 post방식 체크
 
 # 4단계 - 구글 시트에 데이터 저장하기
 today_date = datetime.now().strftime("%d/%m/%Y")
@@ -69,26 +79,12 @@ for exercise in result["exercises"]:
         }
     }
 
-    # sheet_response=requests.post(url=sheet_endpoint,json=sheet_inputs)
-    #
-    # print(sheet_response.text)
-
 
 #========================================================================================
 
 # 5단계 - Sheety API인증하기
-# sheety 엔드포인트 보호하기 위해 Basic인증이나 Bearer 토큰을 추가
+
+# sheety 엔드포인트 보호하기 위해 Basic인증 토큰을 추가
 # requests.get('https://httpbin.org/basic-auth/user/pass', auth=basic) 예시 참고!
-
-    # USERNAME='skpark'
-    # PASSWORD='sk138029'
-    # Basic 인증
-    sheet_response=requests.post(url=sheet_endpoint,json=sheet_inputs,auth=(os.environ["USERNAME"],os.environ["PASSWORD"]))
-
-    # Bearer Token 인증
-    bearer_headers = {
-        "Authorization": f"Bearer {os.environ['TOKEN']}"
-    }
-
-    sheet_response=requests.post(url=sheet_endpoint,json=sheet_inputs,headers=bearer_headers)
-    print(sheet_response)
+    sheet_response=requests.post(url=sheet_endpoint,json=sheet_inputs,headers=basic_headers)
+    print(sheet_response.json())
