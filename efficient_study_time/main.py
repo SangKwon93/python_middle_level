@@ -1,4 +1,4 @@
-# Tkinter를 활용하여 효율적인 공부 시간 카운트 프로그램 구현
+# Tkinter를 활용하여 효율적인 공부 시간 카운트 프로그램 구현 -> 오전 9시~12시 활용하게 변경
 from tkinter import *
 import math
 # ---------------------------- CONSTANTS ------------------------------- #
@@ -7,8 +7,8 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 25
-SHORT_BREAK_MIN = 5
+WORK_MIN = 50
+SHORT_BREAK_MIN = 10
 LONG_BREAK_MIN = 20
 reps=0
 timer=None
@@ -85,7 +85,7 @@ def count_down(count):
         start_timer()
         marks=""
         session=math.floor(reps/2)
-        for _ in rang(session):
+        for _ in range(session):
             marks += "✓"
         check_point.config(text=marks)
 
